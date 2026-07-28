@@ -1,0 +1,701 @@
+     1→     1→// ============================================================// RAGIA Real Estate - Comprehensive Sudan Data & Property Listings
+     2→     2→// ============================================================
+     3→     3→
+     4→     4→export interface Property {
+     5→     5→  id: string;
+     6→     6→  img: string;
+     7→     7→  type: { ar: string; en: string };
+     8→     8→  title: { ar: string; en: string };
+     9→     9→  loc: { ar: string; en: string };
+    10→    10→  city: string;
+    11→    11→  region: string;
+    12→    12→  price: { ar: string; en: string };
+    13→    13→  beds?: number;
+    14→    14→  baths?: number;
+    15→    15→  area?: string;
+    16→    16→  features?: string[];
+    17→    17→}
+    18→    18→
+    19→    19→export interface SudanCity {
+    20→    20→  name: string;
+    21→    21→  nameAr: string;
+    22→    22→  state: string;
+    23→    23→  stateAr: string;
+    24→    24→  areas: { name: string; nameAr: string }[];
+    25→    25→  description: { ar: string; en: string };
+    26→    26→  propertyCount: number;
+    27→    27→}
+    28→    28→
+    29→    29→export interface Service {
+    30→    30→  icon: string;
+    31→    31→  title: { ar: string; en: string };
+    32→    32→  description: { ar: string; en: string };
+    33→    33→  features: { ar: string; en: string }[];
+    34→    34→}
+    35→    35→
+    36→    36→export interface Testimonial {
+    37→    37→  name: string;
+    38→    38→  role: { ar: string; en: string };
+    39→    39→  text: { ar: string; en: string };
+    40→    40→  rating: number;
+    41→    41→  avatar: string;
+    42→    42→}
+    43→    43→
+    44→    44→export interface Country {
+    45→    45→  name: { ar: string; en: string };
+    46→    46→  flag: string;
+    47→    47→  cities: string;
+    48→    48→  propertyTypes: string[];
+    49→    49→}
+    50→    50→
+    51→    51→// ============================================================
+    52→    52→// SUDAN CITIES & REGIONS (Comprehensive)
+    53→    53→// ============================================================
+    54→    54→export const sudanCities: SudanCity[] = [
+    55→    55→  {
+    56→    56→    name: "Khartoum",
+    57→    57→    nameAr: "الخرطوم",
+    58→    58→    state: "Khartoum State",
+    59→    59→    stateAr: "ولاية الخرطوم",
+    60→    60→    areas: [
+    61→    61→      { name: "Al Amarat", nameAr: "الamarat" },
+    62→    62→      { name: "Al Riyadh", nameAr: "الرياض" },
+    63→    63→      { name: "Al Sahafah", nameAr: "الصحافة" },
+    64→    64→      { name: "Al Manshiya", nameAr: "المنشية" },
+    65→    65→      { name: "Al Qasr", nameAr: "القصر" },
+    66→    66→      { name: "Al Matar", nameAr: "المطار" },
+    67→    67→      { name: "Kafouri", nameAr: "كافوري" },
+    68→    68→      { name: "Green Village", nameAr: "القرية الخضراء" },
+    69→    69→      { name: "Al Nour", nameAr: "النور" },
+    70→    70→      { name: "Arkaweet", nameAr: "أركويت" },
+    71→    71→      { name: "Al Fitihab", nameAr: "الفتحاب" },
+    72→    72→      { name: "Deim", nameAr: "الديم" },
+    73→    73→    ],
+    74→    74→    description: {
+    75→    75→      ar: "العاصمة الوطنية وقلب الحياة الاقتصادية والتجارية في السودان، تضم أرقى الأحياء السكنية والتجارية وأهم المرافق الحكومية والدبلوماسية.",
+    76→    76→      en: "The national capital and economic heart of Sudan, home to the most prestigious residential and commercial districts and key government and diplomatic facilities.",
+    77→    77→    },
+    78→    78→    propertyCount: 450,
+    79→    79→  },
+    80→    80→  {
+    81→    81→    name: "Omdurman",
+    82→    82→    nameAr: "أم درمان",
+    83→    83→    state: "Khartoum State",
+    84→    84→    stateAr: "ولاية الخرطوم",
+    85→    85→    areas: [
+    86→    86→      { name: "Al Thawra", nameAr: "الثورة" },
+    87→    87→      { name: "Al Muhandiseen", nameAr: "المهندسين" },
+    88→    88→      { name: "Al Wadi", nameAr: "الوادي" },
+    89→    89→      { name: "Al Baladiya", nameAr: "البلدية" },
+    90→    90→      { name: "Karrari", nameAr: "كراري" },
+    91→    91→      { name: "Um Badda", nameAr: "أم بدة" },
+    92→    92→      { name: "Al Daraja", nameAr: "الدارجة" },
+    93→    93→    ],
+    94→    94→    description: {
+    95→    95→      ar: "أكبر مدينة في السودان من حيث عدد السكان، عاصمة التراث الثقافي والصوفي، تتميز بأسواقها الشعبية وأحيائها التاريخية العريقة.",
+    96→    96→      en: "Sudan's most populous city, the capital of cultural and Sufi heritage, known for its traditional markets and historic neighborhoods.",
+    97→    97→    },
+    98→    98→    propertyCount: 380,
+    99→    99→  },
+   100→   100→  {
+   101→   101→    name: "Khartoum North",
+   102→   102→    nameAr: "الخرطوم بحري",
+   103→   103→    state: "Khartoum State",
+   104→   104→    stateAr: "ولاية الخرطوم",
+   105→   105→    areas: [
+   106→   106→      { name: "Al Shargia", nameAr: "الشرقية" },
+   107→   107→      { name: "Al Gharbia", nameAr: "الغربية" },
+   108→   108→      { name: "Halfaya", nameAr: "حلفاية" },
+   109→   109→      { name: "Al Dakhla", nameAr: "الدخلة" },
+   110→   110→      { name: "Shambat", nameAr: "شمبات" },
+   111→   111→      { name: "Al Kadaro", nameAr: "القدارو" },
+   112→   112→    ],
+   113→   113→    description: {
+   114→   114→      ar: "المدينة الصناعية الأولى في السودان، تضم المصانع الكبرى والمناطق الصناعية إضافة إلى أحياء سكنية حديثة ومتطورة.",
+   115→   115→      en: "Sudan's primary industrial city, home to major factories and industrial zones as well as modern residential neighborhoods.",
+   116→   116→    },
+   117→   117→    propertyCount: 320,
+   118→   118→  },
+   119→   119→  {
+   120→   120→    name: "Port Sudan",
+   121→   121→    nameAr: "بورتسودان",
+   122→   122→    state: "Red Sea State",
+   123→   123→    stateAr: "ولاية البحر الأحمر",
+   124→   124→    areas: [
+   125→   125→      { name: "Al Jazeera", nameAr: "الجزيرة" },
+   126→   126→      { name: "Al Salam", nameAr: "السلام" },
+   127→   127→      { name: "Port Area", nameAr: "منطقة الميناء" },
+   128→   128→    ],
+   129→   129→    description: {
+   130→   130→      ar: "عاصمة ولاية البحر الأحمر والميناء الرئيسي للسودان على البحر الأحمر، مدينة تجارية وساحلية ذات أهمية استراتيجية كبرى.",
+   131→   131→      en: "Capital of Red Sea State and Sudan's main port on the Red Sea, a commercial and coastal city of strategic importance.",
+   132→   132→    },
+   133→   133→    propertyCount: 150,
+   134→   134→  },
+   135→   135→  {
+   136→   136→    name: "Kassala",
+   137→   137→    nameAr: "كسلا",
+   138→   138→    state: "Kassala State",
+   139→   139→    stateAr: "ولاية كسلا",
+   140→   140→    areas: [
+   141→   141→      { name: "Al Khatmiya", nameAr: "الختمية" },
+   142→   142→      { name: "Al Matar", nameAr: "المطار" },
+   143→   143→    ],
+   144→   144→    description: {
+   145→   145→      ar: "مدينة جبلية ساحرة تقع عند سفوح جبال تُبُقت، تتميز بطبيعتها الخلابة وتجارتها الحدودية مع إريتريا.",
+   146→   146→      en: "A charming mountain city at the foot of the Tubaq mountains, known for its stunning nature and cross-border trade with Eritrea.",
+   147→   147→    },
+   148→   148→    propertyCount: 95,
+   149→   149→  },
+   150→   150→  {
+   151→   151→    name: "El Obeid",
+   152→   152→    nameAr: "الأبيض",
+   153→   153→    state: "North Kordofan State",
+   154→   154→    stateAr: "ولاية شمال كردفان",
+   155→   155→    areas: [
+   156→   156→      { name: "Al Madina", nameAr: "المدينة" },
+   157→   157→      { name: "Al Gardeed", nameAr: "الجديد" },
+   158→   158→    ],
+   159→   159→    description: {
+   160→   160→      ar: "عاصمة ولاية شمال كردفان وأهم مدن وسط السودان، مركز تجاري وزراعي كبير يقع على طريق التجارة بين الشمال والجنوب.",
+   161→   161→      en: "Capital of North Kordofan and a major central Sudan city, an important commercial and agricultural center on the north-south trade route.",
+   162→   162→    },
+   163→   163→    propertyCount: 110,
+   164→   164→  },
+   165→   165→  {
+   166→   166→    name: "Nyala",
+   167→   167→    nameAr: "نيالا",
+   168→   168→    state: "South Darfur State",
+   169→   169→    stateAr: "ولاية جنوب دارفور",
+   170→   170→    areas: [
+   171→   171→      { name: "Al Nour", nameAr: "النور" },
+   172→   172→      { name: "Al Jazeera", nameAr: "الجزيرة" },
+   173→   173→    ],
+   174→   174→    description: {
+   175→   175→      ar: "أكبر مدينة في إقليم دارفور وعاصمة ولاية جنوب دارفور، مركز تجاري وزراعي حيوي في غرب السودان.",
+   176→   176→      en: "The largest city in the Darfur region and capital of South Darfur State, a vital commercial and agricultural center in western Sudan.",
+   177→   177→    },
+   178→   178→    propertyCount: 85,
+   179→   179→  },
+   180→   180→  {
+   181→   181→    name: "Al Fashir",
+   182→   182→    nameAr: "الفاشر",
+   183→   183→    state: "North Darfur State",
+   184→   184→    stateAr: "ولاية شمال دارفور",
+   185→   185→    areas: [
+   186→   186→      { name: "Al Madina", nameAr: "المدينة" },
+   187→   187→    ],
+   188→   188→    description: {
+   189→   189→      ar: "عاصمة ولاية شمال دارفور، مدينة تاريخية عريقة كانت عاصمة سلطنة دارفور القديمة.",
+   190→   190→      en: "Capital of North Darfur State, a historic city that was the capital of the ancient Darfur Sultanate.",
+   191→   191→    },
+   192→   192→    propertyCount: 70,
+   193→   193→  },
+   194→   194→  {
+   195→   195→    name: "Wad Madani",
+   196→   196→    nameAr: "واد مدني",
+   197→   197→    state: "Al Jazirah State",
+   198→   198→    stateAr: "ولاية الجزيرة",
+   199→   199→    areas: [
+   200→   200→      { name: "Al Madina", nameAr: "المدينة" },
+   201→   201→      { name: "Al Shirqiyya", nameAr: "الشرقية" },
+   202→   202→      { name: "Al Rimal", nameAr: "الرمال" },
+   203→   203→    ],
+   204→   204→    description: {
+   205→   205→      ar: "عاصمة ولاية الجزيرة وأهم مدن السودان الزراعية، تقع في قلب مشروع الجزيرة الزراعي الأكبر في أفريقيا.",
+   206→   206→      en: "Capital of Al Jazirah State and Sudan's most important agricultural city, located in the heart of Africa's largest irrigation project.",
+   207→   207→    },
+   208→   208→    propertyCount: 180,
+   209→   209→  },
+   210→   210→  {
+   211→   211→    name: "Atbara",
+   212→   212→    nameAr: "عطبرة",
+   213→   213→    state: "River Nile State",
+   214→   214→    stateAr: "ولاية نهر النيل",
+   215→   215→    areas: [
+   216→   216→      { name: "Al Madina", nameAr: "المدينة" },
+   217→   217→      { name: "Al Railway", nameAr: "حي السكة حديد" },
+   218→   218→    ],
+   219→   219→    description: {
+   220→   220→      ar: "مدينة الحديد والنار، عاصمة ولاية نهر النيل، تتميز بتاريخها العمالي وموقعها الاستراتيجي عند التقاء النيل الأزرق والنيل الأبيض.",
+   221→   221→      en: "The City of Iron and Fire, capital of River Nile State, known for its labor history and strategic location at the confluence of the Blue and White Nile.",
+   222→   222→    },
+   223→   223→    propertyCount: 90,
+   224→   224→  },
+   225→   225→  {
+   226→   226→    name: "Dongola",
+   227→   227→    nameAr: "دنقلا",
+   228→   228→    state: "Northern State",
+   229→   229→    stateAr: "الولاية الشمالية",
+   230→   230→    areas: [
+   231→   231→      { name: "Al Madina", nameAr: "المدينة" },
+   232→   232→    ],
+   233→   233→    description: {
+   234→   234→      ar: "عاصمة الولاية الشمالية، مدينة تاريخية تقع على ضفاف النيل وتتميز بمناخها المعتدل وآثارها النوبية القديمة.",
+   235→   235→      en: "Capital of the Northern State, a historic city on the banks of the Nile known for its temperate climate and ancient Nubian ruins.",
+   236→   236→    },
+   237→   237→    propertyCount: 65,
+   238→   238→  },
+   239→   239→  {
+   240→   240→    name: "Sennar",
+   241→   241→    nameAr: "سنار",
+   242→   242→    state: "Sennar State",
+   243→   243→    stateAr: "ولاية سنار",
+   244→   244→    areas: [
+   245→   245→      { name: "Al Madina", nameAr: "المدينة" },
+   246→   246→    ],
+   247→   247→    description: {
+   248→   248→      ar: "مدينة تاريخية ذات أهمية كبيرة، تقع على الضفة الغربية للنيل الأزرق وتضم آثار المملكة السنارية القديمة.",
+   249→   249→      en: "A historically significant city on the west bank of the Blue Nile, home to ancient Sennar Kingdom ruins.",
+   250→   250→    },
+   251→   251→    propertyCount: 75,
+   252→   252→  },
+   253→   253→  {
+   254→   254→    name: "El Damer",
+   255→   255→    nameAr: "الدامر",
+   256→   256→    state: "River Nile State",
+   257→   257→    stateAr: "ولاية نهر النيل",
+   258→   258→    areas: [
+   259→   259→      { name: "Al Madina", nameAr: "المدينة" },
+   260→   260→    ],
+   261→   261→    description: {
+   262→   262→      ar: "مدينة زراعية وتجارية مهمة في ولاية نهر النيل، تقع على ضفاف النيل وتعرف بإنتاجها الزراعي المتنوع.",
+   263→   263→      en: "An important agricultural and commercial city in River Nile State, located on the Nile banks with diverse crop production.",
+   264→   264→    },
+   265→   265→    propertyCount: 55,
+   266→   266→  },
+   267→   267→  {
+   268→   268→    name: "Kosti",
+   269→   269→    nameAr: "كوستي",
+   270→   270→    state: "White Nile State",
+   271→   271→    stateAr: "ولاية النيل الأبيض",
+   272→   272→    areas: [
+   273→   273→      { name: "Al Madina", nameAr: "المدينة" },
+   274→   274→    ],
+   275→   275→    description: {
+   276→   276→      ar: "عاصمة ولاية النيل الأبيض ومدينة نهرية مهمة تقع على الضفة الشرقية للنيل الأبيض، مركز تجاري رئيسي.",
+   277→   277→      en: "Capital of White Nile State, an important river city on the east bank of the White Nile and a major commercial hub.",
+   278→   278→    },
+   279→   279→    propertyCount: 80,
+   280→   280→  },
+   281→   281→  {
+   282→   282→    name: "Al Qadarif",
+   283→   283→    nameAr: "القضارف",
+   284→   284→    state: "Al Qadarif State",
+   285→   285→    stateAr: "ولاية القضارف",
+   286→   286→    areas: [
+   287→   287→      { name: "Al Madina", nameAr: "المدينة" },
+   288→   288→    ],
+   289→   289→    description: {
+   290→   290→      ar: "عاصمة ولاية القضارف ومركز زراعي بامتياز، تُعرف بإنتاجها الوفير من الذرة والسمسم والفول السوداني.",
+   291→   291→      en: "Capital of Al Qadarif State and an agricultural center known for its abundant production of sorghum, sesame, and peanuts.",
+   292→   292→    },
+   293→   293→    propertyCount: 70,
+   294→   294→  },
+   295→   295→  {
+   296→   296→    name: "Ed Daein",
+   297→   297→    nameAr: "الدائن",
+   298→   298→    state: "East Darfur State",
+   299→   299→    stateAr: "ولاية شرق دارفور",
+   300→   300→    areas: [
+   301→   301→      { name: "Al Madina", nameAr: "المدينة" },
+   302→   302→    ],
+   303→   303→    description: {
+   304→   304→      ar: "عاصمة ولاية شرق دارفور، مدينة ناشئة تتميز بموقعها التجاري بين ولايات دارفور.",
+   305→   305→      en: "Capital of East Darfur State, a growing city known for its commercial location between Darfur states.",
+   306→   306→    },
+   307→   307→    propertyCount: 45,
+   308→   308→  },
+   309→   309→  {
+   310→   310→    name: "Zalingei",
+   311→   311→    nameAr: "زالنجي",
+   312→   312→    state: "Central Darfur State",
+   313→   313→    stateAr: "ولاية وسط دارفور",
+   314→   314→    areas: [
+   315→   315→      { name: "Al Madina", nameAr: "المدينة" },
+   316→   316→    ],
+   317→   317→    description: {
+   318→   318→      ar: "عاصمة ولاية وسط دارفور، تقع في قلب إقليم دارفور وتعد مركزاً إدارياً وتجارياً مهماً.",
+   319→   319→      en: "Capital of Central Darfur State, located in the heart of the Darfur region as an important administrative and commercial center.",
+   320→   320→    },
+   321→   321→    propertyCount: 40,
+   322→   322→  },
+   323→   323→  {
+   324→   324→    name: "Al Fula",
+   325→   325→    nameAr: "الفولة",
+   326→   326→    state: "West Kordofan State",
+   327→   327→    stateAr: "ولاية غرب كردفان",
+   328→   328→    areas: [
+   329→   329→      { name: "Al Madina", nameAr: "المدينة" },
+   330→   330→    ],
+   331→   331→    description: {
+   332→   332→      ar: "عاصمة ولاية غرب كردفان، مدينة زراعية ورعوية تقع في منطقة غنية بالموارد الطبيعية.",
+   333→   333→      en: "Capital of West Kordofan State, an agricultural and pastoral city in a resource-rich region.",
+   334→   334→    },
+   335→   335→    propertyCount: 35,
+   336→   336→  },
+   337→   337→];
+   338→   338→
+   339→   339→// ============================================================
+   340→   340→// PROPERTIES DATA (Comprehensive)
+   341→   341→// ============================================================
+   342→   342→export const propertiesData: Property[] = [
+   343→   343→  {
+   344→   344→    id: "1",
+   345→   345→    img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2070",
+   346→   346→    type: { ar: "فلة فاخرة", en: "Luxury Villa" },
+   347→   347→    title: { ar: "قصر ملكي فاخر - الخرطوم", en: "Royal Luxury Palace - Khartoum" },
+   348→   348→    loc: { ar: "الخرطوم - حي المطار", en: "Khartoum - Al Matar" },
+   349→   349→    city: "Khartoum",
+   350→   350→    region: "khartoum",
+   351→   351→    price: { ar: "يُطلب", en: "Price on Request" },
+   352→   352→    beds: 7,
+   353→   353→    baths: 5,
+   354→   354→    area: "850 م²",
+   355→   355→    features: ["مسبح", "حديقة", "مرآب", "مراقبة"],
+   356→   356→  },
+   357→   357→  {
+   358→   358→    id: "2",
+   359→   359→    img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=2000",
+   360→   360→    type: { ar: "شقة فخمة", en: "Luxury Apartment" },
+   361→   361→    title: { ar: "شقة تمليك فاخرة - الرياض", en: "Luxury Ownership Apartment - Riyadh" },
+   362→   362→    loc: { ar: "الخرطوم - حي الرياض", en: "Khartoum - Al Riyadh" },
+   363→   363→    city: "Khartoum",
+   364→   364→    region: "khartoum",
+   365→   365→    price: { ar: "850,000,000 ج.س", en: "850M SDG" },
+   366→   366→    beds: 4,
+   367→   367→    baths: 3,
+   368→   368→    area: "320 م²",
+   369→   369→    features: ["تشطيب سوبر لوكس", "إطلالة نهرية"],
+   370→   370→  },
+   371→   371→  {
+   372→   372→    id: "3",
+   373→   373→    img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070",
+   374→   374→    type: { ar: "برج سكني", en: "Residential Tower" },
+   375→   375→    title: { ar: "برج سكني متكامل - أم درمان", en: "Integrated Residential Tower - Omdurman" },
+   376→   376→    loc: { ar: "أم درمان - المهندسين", en: "Omdurman - Al Muhandiseen" },
+   377→   377→    city: "Omdurman",
+   378→   378→    region: "khartoum",
+   379→   379→    price: { ar: "استثمار", en: "Investment" },
+   380→   380→    beds: 8,
+   381→   381→    baths: 6,
+   382→   382→    area: "1200 م²",
+   383→   383→    features: ["مصعد", "أمن ٢٤ ساعة", "مسبح"],
+   384→   384→  },
+   385→   385→  {
+   386→   386→    id: "4",
+   387→   387→    img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070",
+   388→   388→    type: { ar: "أرض سكنية", en: "Residential Land" },
+   389→   389→    title: { ar: "قطعة أرض سكنية - كافوري", en: "Residential Land Plot - Kafouri" },
+   390→   390→    loc: { ar: "الخرطوم - كافوري", en: "Khartoum - Kafouri" },
+   391→   391→    city: "Khartoum",
+   392→   392→    region: "khartoum",
+   393→   393→    price: { ar: "420,000,000 ج.س", en: "420M SDG" },
+   394→   394→    area: "600 م²",
+   395→   395→    features: ["مخطط معتمد", "شوارع معبدة"],
+   396→   396→  },
+   397→   397→  {
+   398→   398→    id: "5",
+   399→   399→    img: "https://images.unsplash.com/photo-1416331108676-a22ccb276e35?q=80&w=2070",
+   400→   400→    type: { ar: "مزرعة", en: "Farm" },
+   401→   401→    title: { ar: "مزرعة زراعية شاملة - واد مدني", en: "Comprehensive Agricultural Farm - Wad Madani" },
+   402→   402→    loc: { ar: "واد مدني - الشرابية", en: "Wad Madani - Al Sharqiya" },
+   403→   403→    city: "Wad Madani",
+   404→   404→    region: "al-jazirah",
+   405→   405→    price: { ar: "350,000,000 ج.س", en: "350M SDG" },
+   406→   406→    area: "50 فدان",
+   407→   407→    features: ["آبار ارتوازية", "معدات زراعية"],
+   408→   408→  },
+   409→   409→  {
+   410→   410→    id: "6",
+   411→   411→    img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075",
+   412→   412→    type: { ar: "فلة", en: "Villa" },
+   413→   413→    title: { ar: "فلة حديثة - عطبرة", en: "Modern Villa - Atbara" },
+   414→   414→    loc: { ar: "عطبرة - المدينة", en: "Atbara - City Center" },
+   415→   415→    city: "Atbara",
+   416→   416→    region: "river-nile",
+   417→   417→    price: { ar: "180,000,000 ج.س", en: "180M SDG" },
+   418→   418→    beds: 5,
+   419→   419→    baths: 4,
+   420→   420→    area: "450 م²",
+   421→   421→    features: ["تصميم عصري", "حديقة خاصة"],
+   422→   422→  },
+   423→   423→  {
+   424→   424→    id: "7",
+   425→   425→    img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053",
+   426→   426→    type: { ar: "شقة تمليك", en: "Ownership Apartment" },
+   427→   427→    title: { ar: "شقة تمليك فاخرة - بورتسودان", en: "Luxury Apartment - Port Sudan" },
+   428→   428→    loc: { ar: "بورتسودان - الجزيرة", en: "Port Sudan - Al Jazeera" },
+   429→   429→    city: "Port Sudan",
+   430→   430→    region: "red-sea",
+   431→   431→    price: { ar: "280,000,000 ج.س", en: "280M SDG" },
+   432→   432→    beds: 3,
+   433→   433→    baths: 2,
+   434→   434→    area: "220 م²",
+   435→   435→    features: ["إطلالة بحرية", "تشطيب سوبر"],
+   436→   436→  },
+   437→   437→  {
+   438→   438→    id: "8",
+   439→   439→    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070",
+   440→   440→    type: { ar: "عمارة سكنية", en: "Residential Building" },
+   441→   441→    title: { ar: "عمارة سكنية - الخرطوم بحري", en: "Residential Building - Khartoum North" },
+   442→   442→    loc: { ar: "الخرطوم بحري - الشرقية", en: "Khartoum North - Al Shargia" },
+   443→   443→    city: "Khartoum North",
+   444→   444→    region: "khartoum",
+   445→   445→    price: { ar: "يُطلب", en: "Price on Request" },
+   446→   446→    beds: 12,
+   447→   447→    baths: 8,
+   448→   448→    area: "2000 م²",
+   449→   449→    features: ["شقق متعددة", "مصعد", "مرآب"],
+   450→   450→  },
+   451→   451→  {
+   452→   452→    id: "9",
+   453→   453→    img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2070",
+   454→   454→    type: { ar: "أرض تجارية", en: "Commercial Land" },
+   455→   455→    title: { ar: "أرض تجارية - الأبيض", en: "Commercial Land - El Obeid" },
+   456→   456→    loc: { ar: "الأبيض - الجديد", en: "El Obeid - Al Gardeed" },
+   457→   457→    city: "El Obeid",
+   458→   458→    region: "north-kordofan",
+   459→   459→    price: { ar: "120,000,000 ج.س", en: "120M SDG" },
+   460→   460→    area: "800 م²",
+   461→   461→    features: ["واجهة شارع رئيسي", "مخطط تجاري"],
+   462→   462→  },
+   463→   463→  {
+   464→   464→    id: "10",
+   465→   465→    img: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=2084",
+   466→   466→    type: { ar: "فلة فاخرة", en: "Luxury Villa" },
+   467→   467→    title: { ar: "فلة سوبر لوكس - نيالا", en: "Super Luxury Villa - Nyala" },
+   468→   468→    loc: { ar: "نيالا - النور", en: "Nyala - Al Nour" },
+   469→   469→    city: "Nyala",
+   470→   470→    region: "south-darfur",
+   471→   471→    price: { ar: "250,000,000 ج.س", en: "250M SDG" },
+   472→   472→    beds: 6,
+   473→   473→    baths: 4,
+   474→   474→    area: "500 م²",
+   475→   475→    features: ["مسبح", "حديقة", "نظام أمني"],
+   476→   476→  },
+   477→   477→  {
+   478→   478→    id: "11",
+   479→   479→    img: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?q=80&w=2070",
+   480→   480→    type: { ar: "مزرعة", en: "Farm" },
+   481→   481→    title: { ar: "مزرعة ماشية - كوستي", en: "Livestock Farm - Kosti" },
+   482→   482→    loc: { ar: "كوستي - المدينة", en: "Kosti - City" },
+   483→   483→    city: "Kosti",
+   484→   484→    region: "white-nile",
+   485→   485→    price: { ar: "200,000,000 ج.س", en: "200M SDG" },
+   486→   486→    area: "30 فدان",
+   487→   487→    features: ["حظائر", "آبار", "مراعي"],
+   488→   488→  },
+   489→   489→  {
+   490→   490→    id: "12",
+   491→   491→    img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=2070",
+   492→   492→    type: { ar: "شقة", en: "Apartment" },
+   493→   493→    title: { ar: "شقة عائلية - كسلا", en: "Family Apartment - Kassala" },
+   494→   494→    loc: { ar: "كسلا - الختمية", en: "Kassala - Al Khatmiya" },
+   495→   495→    city: "Kassala",
+   496→   496→    region: "kassala",
+   497→   497→    price: { ar: "95,000,000 ج.س", en: "95M SDG" },
+   498→   498→    beds: 3,
+   499→   499→    baths: 2,
+   500→   500→    area: "180 م²",
+   501→   501→    features: ["قرب الجبل", "هواء نقي"],
+   502→   502→  },
+   503→   503→];
+   504→   504→
+   505→   505→// ============================================================
+   506→   506→// SERVICES DATA
+   507→   507→// ============================================================
+   508→   508→export const servicesData: Service[] = [
+   509→   509→  {
+   510→   510→    icon: "Building2",
+   511→   511→    title: { ar: "بيع العقارات", en: "Property Sales" },
+   512→   512→    description: {
+   513→   513→      ar: "نبيع لك عقارك بأعلى سعر ممكن من خلال شبكتنا الواسعة من المشترين المحليين والدوليين واستراتيجيات التسويق المتقدمة.",
+   514→   514→      en: "We sell your property at the highest possible price through our extensive network of local and international buyers and advanced marketing strategies.",
+   515→   515→    },
+   516→   516→    features: [
+   517→   517→      { ar: "تقييم دقيق للعقار", en: "Accurate property valuation" },
+   518→   518→      { ar: "تسويق مستهدف", en: "Targeted marketing" },
+   519→   519→      { ar: "تفاوض احترافي", en: "Professional negotiation" },
+   520→   520→      { ar: "إتمام الصفقات بسرعة", en: "Fast deal closing" },
+   521→   521→    ],
+   522→   522→  },
+   523→   523→  {
+   524→   524→    icon: "Home",
+   525→   525→    title: { ar: "شراء العقارات", en: "Property Purchase" },
+   526→   526→    description: {
+   527→   527→      ar: "نساعدك في العثور على العقار المثالي من بين آلاف الخيارات المتاحة، مع ضمان شرعية الملكية وأفضل الأسعار.",
+   528→   528→      en: "We help you find the perfect property from thousands of available options, ensuring ownership legality and the best prices.",
+   529→   529→    },
+   530→   530→    features: [
+   531→   531→      { ar: "بحث شامل عن العقارات", en: "Comprehensive property search" },
+   532→   532→      { ar: "فحص قانوني دقيق", en: "Thorough legal verification" },
+   533→   533→      { ar: "استشارة تمويلية", en: "Financing consultation" },
+   534→   534→      { ar: "مرافقة حتى التسليم", en: "Accompaniment until delivery" },
+   535→   535→    ],
+   536→   536→  },
+   537→   537→  {
+   538→   538→    icon: "MessageSquare",
+   539→   539→    title: { ar: "الاستشارات العقارية", en: "Real Estate Consulting" },
+   540→   540→    description: {
+   541→   541→      ar: "فريق من الخبراء المتخصصين يقدمون استشارات شاملة تغطي الجوانب القانونية والمالية والاستثمارية.",
+   542→   542→      en: "A team of specialized experts provides comprehensive consulting covering legal, financial, and investment aspects.",
+   543→   543→    },
+   544→   544→    features: [
+   545→   545→      { ar: "تحليل السوق العقاري", en: "Real estate market analysis" },
+   546→   546→      { ar: "دراسة الجدوى", en: "Feasibility study" },
+   547→   547→      { ar: "تخطيط الاستثمار", en: "Investment planning" },
+   548→   548→      { ar: "نصائح ضريبية", en: "Tax advice" },
+   549→   549→    ],
+   550→   550→  },
+   551→   551→  {
+   552→   552→    icon: "Settings",
+   553→   553→    title: { ar: "إدارة العقارات", en: "Property Management" },
+   554→   554→    description: {
+   555→   555→      ar: "نتولى إدارة عقاراتك بالكامل من الصيانة والتأجير وجمع الإيجارات وتقديم التقارير الدورية.",
+   556→   556→      en: "We manage your properties entirely from maintenance and renting to rent collection and periodic reporting.",
+   557→   557→    },
+   558→   558→    features: [
+   559→   559→      { ar: "صيانة دورية", en: "Regular maintenance" },
+   560→   560→      { ar: "إدارة المستأجرين", en: "Tenant management" },
+   561→   561→      { ar: "جمع الإيجارات", en: "Rent collection" },
+   562→   562→      { ar: "تقارير مالية شهرية", en: "Monthly financial reports" },
+   563→   563→    ],
+   564→   564→  },
+   565→   565→  {
+   566→   566→    icon: "TrendingUp",
+   567→   567→    title: { ar: "الاستثمار العقاري", en: "Real Estate Investment" },
+   568→   568→    description: {
+   569→   569→      ar: "نقدم فرص استثمارية عقارية مختارة بعناية في السودان ومصر والإمارات والسعودية بضمانات عوائد مجزية.",
+   570→   570→      en: "We offer carefully selected real estate investment opportunities in Sudan, Egypt, UAE, and Saudi Arabia with guaranteed profitable returns.",
+   571→   571→    },
+   572→   572→    features: [
+   573→   573→      { ar: "فرص استثمارية حصرية", en: "Exclusive investment opportunities" },
+   574→   574→      { ar: "تحليل المخاطر", en: "Risk analysis" },
+   575→   575→      { ar: "تنويع المحفظة", en: "Portfolio diversification" },
+   576→   576→      { ar: "متابعة العوائد", en: "Returns tracking" },
+   577→   577→    ],
+   578→   578→  },
+   579→   579→  {
+   580→   580→    icon: "FileText",
+   581→   581→    title: { ar: "الخدمات القانونية", en: "Legal Services" },
+   582→   582→    description: {
+   583→   583→      ar: "فريق قانوني متخصص يضمن لك سلامة جميع المعاملات العقارية من التسجيل حتى نقل الملكية.",
+   584→   584→      en: "A specialized legal team ensures the safety of all real estate transactions from registration to title transfer.",
+   585→   585→    },
+   586→   586→    features: [
+   587→   587→      { ar: "توثيق العقود", en: "Contract documentation" },
+   588→   588→      { ar: "نقل الملكية", en: "Title transfer" },
+   589→   589→      { ar: "حل النزاعات", en: "Dispute resolution" },
+   590→   590→      { ar: "فحص الملكية", en: "Ownership verification" },
+   591→   591→    ],
+   592→   592→  },
+   593→   593→];
+   594→   594→
+   595→   595→// ============================================================
+   596→   596→// TESTIMONIALS DATA
+   597→   597→// ============================================================
+   598→   598→export const testimonialsData: Testimonial[] = [
+   599→   599→  {
+   600→   600→    name: "أحمد محمد عبدالله",
+   601→   601→    role: { ar: "رجل أعمال - الخرطوم", en: "Businessman - Khartoum" },
+   602→   602→    text: {
+   603→   603→      ar: "تعاملت مع راقية للعقارات في شراء فيلة فاخرة في حي الرياض. الخدمة كانت استثنائية من البداية حتى التسليم. أنصح الجميع بالتعامل معهم.",
+   604→   604→      en: "I dealt with Ragia Real Estate to buy a luxury villa in Al Riyadh. The service was exceptional from start to finish. I recommend them to everyone.",
+   605→   605→    },
+   606→   606→    rating: 5,
+   607→   607→    avatar: "AM",
+   608→   608→  },
+   609→   609→  {
+   610→   610→    name: "سارة علي إبراهيم",
+   611→   611→    role: { ar: "مستثمرة عقارية - دبي", en: "Real Estate Investor - Dubai" },
+   612→   612→    text: {
+   613→   613→      ar: "راقية للعقارات ساعدتني في العثور على فرصة استثمارية ممتازة في الخرطوم. فريق محترف وذو خبرة عالية في السوق السوداني.",
+   614→   614→      en: "Ragia Real Estate helped me find an excellent investment opportunity in Khartoum. A professional team with deep knowledge of the Sudanese market.",
+   615→   615→    },
+   616→   616→    rating: 5,
+   617→   617→    avatar: "SA",
+   618→   618→  },
+   619→   619→  {
+   620→   620→    name: "محمد عثمان خالد",
+   621→   621→    role: { ar: "مهندس مدني - عطبرة", en: "Civil Engineer - Atbara" },
+   622→   622→    text: {
+   623→   623→      ar: "خدمة الاستشارات العقارية من راقية كانت السبب الرئيسي في نجاح مشروعي السكني. شكراً لفريق العمل المحترف.",
+   624→   624→      en: "Ragia's real estate consulting service was the main reason for the success of my residential project. Thanks to the professional team.",
+   625→   625→    },
+   626→   626→    rating: 5,
+   627→   627→    avatar: "MK",
+   628→   628→  },
+   629→   629→  {
+   630→   630→    name: "فاطمة أحمد حسن",
+   631→   631→    role: { ar: "طبيبة - أم درمان", en: "Doctor - Omdurman" },
+   632→   632→    text: {
+   633→   633→      ar: "اشتريت شقتي الأولى عبر راقية للعقارات. التجربة كانت سلسة ومريحة وتم توفير كل ما أحتاجه بوقت قياسي.",
+   634→   634→      en: "I bought my first apartment through Ragia Real Estate. The experience was smooth and comfortable, with everything provided in record time.",
+   635→   635→    },
+   636→   636→    rating: 5,
+   637→   637→    avatar: "FA",
+   638→   638→  },
+   639→   639→];
+   640→   640→
+   641→   641→// ============================================================
+   642→   642→// COUNTRIES WE OPERATE IN
+   643→   643→// ============================================================
+   644→   644→export const countriesData: Country[] = [
+   645→   645→  {
+   646→   646→    name: { ar: "السودان", en: "Sudan" },
+   647→   647→    flag: "🇸🇩",
+   648→   648→    cities: "الخرطوم، أم درمان، الخرطوم بحري، بورتسودان، كسلا، واد مداني والمزيد",
+   649→   649→    propertyTypes: ["فلل", "شقق", "أراضي", "مزارع", "أبراج", "عمائر"],
+   650→   650→  },
+   651→   651→  {
+   652→   652→    name: { ar: "مصر", en: "Egypt" },
+   653→   653→    flag: "🇪🇬",
+   654→   654→    cities: "القاهرة، الإسكندرية، الجيشة، التجمع الخامس، ٦ أكتوبر",
+   655→   655→    propertyTypes: ["فلل", "شقق", "استوديوهات", "محلات تجارية"],
+   656→   656→  },
+   657→   657→  {
+   658→   658→    name: { ar: "الإمارات", en: "UAE" },
+   659→   659→    flag: "🇦🇪",
+   660→   660→    cities: "دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة",
+   661→   661→    propertyTypes: ["أبراج سكنية", "شقق فاخرة", "فلل", "مكاتب تجارية"],
+   662→   662→  },
+   663→   663→  {
+   664→   664→    name: { ar: "السعودية", en: "Saudi Arabia" },
+   665→   665→    flag: "🇸🇦",
+   666→   666→    cities: "الرياض، جدة، الدمام، مكة المكرمة، المدينة المنورة",
+   667→   667→    propertyTypes: ["فلل", "شقق", "أراضي", "عمائر تجارية"],
+   668→   668→  },
+   669→   669→];
+   670→   670→
+   671→   671→// ============================================================
+   672→   672→// STATS DATA
+   673→   673→// ============================================================
+   674→   674→export const statsData = [
+   675→   675→  { target: 20, suffix: "+", label: { ar: "سنة من الخبرة", en: "Years of Experience" } },
+   676→   676→  { target: 2500, suffix: "+", label: { ar: "عقار تم تسويقه", en: "Properties Marketed" } },
+   677→   677→  { target: 4, suffix: "", label: { ar: "دول نعمل فيها", en: "Countries We Operate In" } },
+   678→   678→  { target: 18, suffix: "+", label: { ar: "مدينة سودانية", en: "Sudanese Cities Covered" } },
+   679→   679→  { target: 98, suffix: "%", label: { ar: "رضا العملاء", en: "Client Satisfaction" } },
+   680→   680→  { target: 50, suffix: "+", label: { ar: "خبير عقاري", en: "Real Estate Experts" } },
+   681→   681→];
+   682→   682→
+   683→   683→// ============================================================
+   684→   684→// PROPERTY TYPE FILTERS
+   685→   685→// ============================================================
+   686→   686→export const propertyTypes = [
+   687→   687→  { value: "all", label: { ar: "الكل", en: "All" } },
+   688→   688→  { value: "villa", label: { ar: "فلل", en: "Villas" } },
+   689→   689→  { value: "apartment", label: { ar: "شقق", en: "Apartments" } },
+   690→   690→  { value: "land", label: { ar: "أراضي", en: "Land" } },
+   691→   691→  { value: "tower", label: { ar: "أبراج", en: "Towers" } },
+   692→   692→  { value: "farm", label: { ar: "مزارع", en: "Farms" } },
+   693→   693→  { value: "building", label: { ar: "عمائر", en: "Buildings" } },
+   694→   694→];
+   695→   695→
+   696→   696→// ============================================================
+   697→   697→// WA NUMBER
+   698→   698→// ============================================================
+   699→   699→export const WA_NUMBER = "249920119571";
+   700→   700→export const PHONE_NUMBER = "+249912339585";
+   701→   701→
