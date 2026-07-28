@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
+  basePath: "/ragia-realestate",
+  assetPrefix: "/ragia-realestate/",
   images: {
     unoptimized: true,
   },
