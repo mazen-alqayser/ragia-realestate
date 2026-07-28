@@ -17,27 +17,23 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NODE_VERSION: "20"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm install
 
       - name: Build static site
-        run: bun run build
+        run: npm run build
+
+      - name: Verify output
+        run: ls -la out/ && echo "Build successful!"
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
