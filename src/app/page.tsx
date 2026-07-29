@@ -218,15 +218,19 @@ function Preloader({ lang }: { lang: Lang }) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Samsung Android fix: multiple fallback timers to ensure preloader hides
+    const t1 = setTimeout(() => {
       setVisible(false);
-      // Fallback: force remove preloader after animation
-      setTimeout(() => {
-        const el = document.getElementById('ragia-preloader');
-        if (el) el.style.display = 'none';
-      }, 1000);
-    }, 2500);
-    return () => clearTimeout(timer);
+    }, 2000);
+    const t2 = setTimeout(() => {
+      const el = document.getElementById('ragia-preloader');
+      if (el) el.classList.add('preloader-hide');
+    }, 3000);
+    const t3 = setTimeout(() => {
+      const el = document.getElementById('ragia-preloader');
+      if (el) el.remove();
+    }, 6000);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
 
   if (!visible) return null;
@@ -395,19 +399,15 @@ function ParticlesBg() {
         <span
           key={p.id}
           className="absolute rounded-full bg-[#d4af37]"
-          style={
-            {
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              top: `${p.top}%`,
-              left: `${p.left}%`,
-              opacity: p.opacity,
-              boxShadow: '0 0 6px rgba(212,175,55,0.8)',
-              animation: `particleFloat ${p.duration}s ease-in-out ${p.delay}s infinite`,
-              '--tx': `${p.tx}px`,
-              '--ty': `${p.ty}px`,
-            } as React.CSSProperties
-          }
+          style={{
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            top: `${p.top}%`,
+            left: `${p.left}%`,
+            opacity: p.opacity,
+            boxShadow: '0 0 6px rgba(212,175,55,0.8)',
+            animation: `particleFloat ${p.duration}s ease-in-out ${p.delay}s infinite`,
+          }}
         />
       ))}
     </div>
@@ -1784,6 +1784,23 @@ export default function Home() {
       document.documentElement.lang = lang;
     }
   }, [lang]);
+
+  // Samsung Android fix: global error handler to force-remove preloader
+  useEffect(() => {
+    const forceHide = () => {
+      const el = document.getElementById('ragia-preloader');
+      if (el) {
+        el.classList.add('preloader-hide');
+        setTimeout(() => el.remove(), 500);
+      }
+    };
+    window.addEventListener('error', forceHide);
+    window.addEventListener('unhandledrejection', forceHide);
+    return () => {
+      window.removeEventListener('error', forceHide);
+      window.removeEventListener('unhandledrejection', forceHide);
+    };
+  }, []);
 
   return (
     <>

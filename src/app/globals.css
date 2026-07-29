@@ -195,7 +195,7 @@
     opacity: 1;
   }
   100% {
-    transform: translate(var(--tx, 100px), var(--ty, -200px)) rotate(720deg);
+    transform: translate(80px, -180px) rotate(720deg);
     opacity: 0;
   }
 }
@@ -308,6 +308,30 @@
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+}
+
+/* Samsung Android fix: CSS-only preloader auto-hide */
+@keyframes preloaderForceHide {
+  0%, 60% {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+#ragia-preloader {
+  animation: preloaderForceHide 5s ease-in forwards !important;
+}
+
+#ragia-preloader.preloader-hide {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 /* =========================================
