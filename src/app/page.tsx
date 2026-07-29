@@ -218,70 +218,47 @@ function Preloader({ lang }: { lang: Lang }) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(false), 3000);
+    const timer = setTimeout(() => {
+      setVisible(false);
+      // Fallback: force remove preloader after animation
+      setTimeout(() => {
+        const el = document.getElementById('ragia-preloader');
+        if (el) el.style.display = 'none';
+      }, 1000);
+    }, 2500);
     return () => clearTimeout(timer);
   }, []);
 
+  if (!visible) return null;
+
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[100] bg-[#05070d] flex flex-col items-center justify-center"
+    <div
+      id="ragia-preloader"
+      style={{ position: 'fixed', inset: 0, zIndex: 100, background: '#05070d', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'opacity 0.6s ease' }}
+    >
+      <div style={{ textAlign: 'center', position: 'relative', zIndex: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 8 }}>
+          <span style={{ height: 1, width: 40, background: 'rgba(212,175,55,0.6)' }} />
+          <Crown style={{ width: 24, height: 24, color: '#d4af37' }} />
+          <span style={{ height: 1, width: 40, background: 'rgba(212,175,55,0.6)' }} />
+        </div>
+        <h1
+          className="text-gold-gradient"
+          style={{ fontFamily: 'var(--font-playfair), serif', fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontWeight: 700, letterSpacing: '0.2em', margin: 0 }}
         >
-          <div className="absolute inset-0 particles-bg">
-            {Array.from({ length: 15 }).map((_, i) => (
-              <span
-                key={i}
-                className="absolute rounded-full bg-[#d4af37]"
-                style={{
-                  width: `${2 + Math.random() * 3}px`,
-                  height: `${2 + Math.random() * 3}px`,
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                  opacity: 0.3 + Math.random() * 0.4,
-                  animation: `float ${4 + Math.random() * 6}s ease-in-out ${Math.random() * 2}s infinite`,
-                }}
-              />
-            ))}
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-center relative z-10"
-          >
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <span className="h-px w-10 bg-[#d4af37]/60" />
-              <Crown className="w-6 h-6 text-[#d4af37]" />
-              <span className="h-px w-10 bg-[#d4af37]/60" />
-            </div>
-            <h1
-              className="text-5xl sm:text-7xl font-bold text-gold-gradient tracking-[0.2em] mb-2"
-              style={{ fontFamily: 'var(--font-playfair), serif' }}
-            >
-              RAGIA
-            </h1>
-            <p className="text-[#94a3b8] tracking-[0.5em] text-xs sm:text-sm uppercase ml-[0.5em]">
-              Real Estate
-            </p>
-          </motion.div>
-          <div className="mt-10 w-48 sm:w-64 h-[2px] bg-white/10 overflow-hidden rounded-full relative z-10">
-            <motion.div
-              className="h-full bg-gradient-to-r from-[#b8960c] via-[#f0d060] to-[#b8960c]"
-              initial={{ x: '-100%' }}
-              animate={{ x: '100%' }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </div>
-          <p className="mt-6 text-[#94a3b8]/60 text-xs tracking-widest relative z-10">
-            {lang === 'ar' ? 'جارٍ التحضير...' : 'Loading...'}
-          </p>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          RAGIA
+        </h1>
+        <p style={{ color: '#94a3b8', letterSpacing: '0.5em', fontSize: 'clamp(0.65rem, 2vw, 0.875rem)', textTransform: 'uppercase', marginLeft: '0.5em', marginTop: 4 }}>
+          Real Estate
+        </p>
+      </div>
+      <div style={{ marginTop: 40, width: 'clamp(180px, 40vw, 256px)', height: 2, background: 'rgba(255,255,255,0.1)', overflow: 'hidden', borderRadius: 9999, position: 'relative', zIndex: 10 }}>
+        <div style={{ height: '100%', background: 'linear-gradient(90deg, #b8960c, #f0d060, #b8960c)', animation: 'slideRight 2s linear infinite' }} />
+      </div>
+      <p style={{ marginTop: 24, color: 'rgba(148,163,184,0.6)', fontSize: 12, letterSpacing: '0.2em' }}>
+        {lang === 'ar' ? 'جارٍ التحضير...' : 'Loading...'}
+      </p>
+    </div>
   );
 }
 
