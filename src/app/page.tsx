@@ -218,51 +218,70 @@ function Preloader({ lang }: { lang: Lang }) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    // Samsung Android fix: multiple fallback timers to ensure preloader hides
-    const t1 = setTimeout(() => {
-      setVisible(false);
-    }, 2000);
-    const t2 = setTimeout(() => {
-      const el = document.getElementById('ragia-preloader');
-      if (el) el.classList.add('preloader-hide');
-    }, 3000);
-    const t3 = setTimeout(() => {
-      const el = document.getElementById('ragia-preloader');
-      if (el) el.remove();
-    }, 6000);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    const timer = setTimeout(() => setVisible(false), 3000);
+    return () => clearTimeout(timer);
   }, []);
 
-  if (!visible) return null;
-
   return (
-    <div
-      id="ragia-preloader"
-      style={{ position: 'fixed', inset: 0, zIndex: 100, background: '#05070d', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'opacity 0.6s ease' }}
-    >
-      <div style={{ textAlign: 'center', position: 'relative', zIndex: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 8 }}>
-          <span style={{ height: 1, width: 40, background: 'rgba(212,175,55,0.6)' }} />
-          <Crown style={{ width: 24, height: 24, color: '#d4af37' }} />
-          <span style={{ height: 1, width: 40, background: 'rgba(212,175,55,0.6)' }} />
-        </div>
-        <h1
-          className="text-gold-gradient"
-          style={{ fontFamily: 'var(--font-playfair), serif', fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontWeight: 700, letterSpacing: '0.2em', margin: 0 }}
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          className="fixed inset-0 z-[100] bg-[#05070d] flex flex-col items-center justify-center"
         >
-          RAGIA
-        </h1>
-        <p style={{ color: '#94a3b8', letterSpacing: '0.5em', fontSize: 'clamp(0.65rem, 2vw, 0.875rem)', textTransform: 'uppercase', marginLeft: '0.5em', marginTop: 4 }}>
-          Real Estate
-        </p>
-      </div>
-      <div style={{ marginTop: 40, width: 'clamp(180px, 40vw, 256px)', height: 2, background: 'rgba(255,255,255,0.1)', overflow: 'hidden', borderRadius: 9999, position: 'relative', zIndex: 10 }}>
-        <div style={{ height: '100%', background: 'linear-gradient(90deg, #b8960c, #f0d060, #b8960c)', animation: 'slideRight 2s linear infinite' }} />
-      </div>
-      <p style={{ marginTop: 24, color: 'rgba(148,163,184,0.6)', fontSize: 12, letterSpacing: '0.2em' }}>
-        {lang === 'ar' ? 'جارٍ التحضير...' : 'Loading...'}
-      </p>
-    </div>
+          <div className="absolute inset-0 particles-bg">
+            {Array.from({ length: 15 }).map((_, i) => (
+              <span
+                key={i}
+                className="absolute rounded-full bg-[#d4af37]"
+                style={{
+                  width: `${2 + Math.random() * 3}px`,
+                  height: `${2 + Math.random() * 3}px`,
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  opacity: 0.3 + Math.random() * 0.4,
+                  animation: `float ${4 + Math.random() * 6}s ease-in-out ${Math.random() * 2}s infinite`,
+                }}
+              />
+            ))}
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-center relative z-10"
+          >
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <span className="h-px w-10 bg-[#d4af37]/60" />
+              <Crown className="w-6 h-6 text-[#d4af37]" />
+              <span className="h-px w-10 bg-[#d4af37]/60" />
+            </div>
+            <h1
+              className="text-5xl sm:text-7xl font-bold text-gold-gradient tracking-[0.2em] mb-2"
+              style={{ fontFamily: 'var(--font-playfair), serif' }}
+            >
+              RAGIA
+            </h1>
+            <p className="text-[#94a3b8] tracking-[0.5em] text-xs sm:text-sm uppercase ml-[0.5em]">
+              Real Estate
+            </p>
+          </motion.div>
+          <div className="mt-10 w-48 sm:w-64 h-[2px] bg-white/10 overflow-hidden rounded-full relative z-10">
+            <motion.div
+              className="h-full bg-gradient-to-r from-[#b8960c] via-[#f0d060] to-[#b8960c]"
+              initial={{ x: '-100%' }}
+              animate={{ x: '100%' }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
+          <p className="mt-6 text-[#94a3b8]/60 text-xs tracking-widest relative z-10">
+            {lang === 'ar' ? 'جارٍ التحضير...' : 'Loading...'}
+          </p>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -399,15 +418,19 @@ function ParticlesBg() {
         <span
           key={p.id}
           className="absolute rounded-full bg-[#d4af37]"
-          style={{
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            top: `${p.top}%`,
-            left: `${p.left}%`,
-            opacity: p.opacity,
-            boxShadow: '0 0 6px rgba(212,175,55,0.8)',
-            animation: `particleFloat ${p.duration}s ease-in-out ${p.delay}s infinite`,
-          }}
+          style={
+            {
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              top: `${p.top}%`,
+              left: `${p.left}%`,
+              opacity: p.opacity,
+              boxShadow: '0 0 6px rgba(212,175,55,0.8)',
+              animation: `particleFloat ${p.duration}s ease-in-out ${p.delay}s infinite`,
+              '--tx': `${p.tx}px`,
+              '--ty': `${p.ty}px`,
+            } as React.CSSProperties
+          }
         />
       ))}
     </div>
@@ -587,7 +610,7 @@ function Hero({ lang }: { lang: Lang }) {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Parallax background */}
-      <motion.div style={{ y }} className="absolute inset-0 -z-10">
+          <motion.div style={{ y }} className="absolute inset-0 -z-10">
         <img
           src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070"
           alt="Luxury real estate"
@@ -602,12 +625,12 @@ function Hero({ lang }: { lang: Lang }) {
         style={{ opacity }}
         className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center"
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex items-center justify-center gap-3 mb-6"
-        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex items-center justify-center gap-3 mb-6"
+          >
           <span className="h-px w-16 bg-gradient-to-r from-transparent to-[#d4af37]" />
           <Crown className="w-5 h-5 text-[#d4af37]" />
           <span className="h-px w-16 bg-gradient-to-l from-transparent to-[#d4af37]" />
@@ -649,15 +672,15 @@ function Hero({ lang }: { lang: Lang }) {
           )}
         </motion.h2>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1 }}
-          className="text-base sm:text-lg text-[#cbd5e1] max-w-2xl mx-auto mb-10 leading-relaxed"
-        >
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.1 }}
+            className="text-base sm:text-lg text-[#cbd5e1] max-w-2xl mx-auto mb-10 leading-relaxed"
+          >
           {lang === 'ar'
-            ? 'مع خبرة تتجاوز ٢٠ عاماً، نقدم لك أرقى العقارات في السودان ومصر والإمارات والسعودية. نحوّل رؤيتك العقارية إلى واقع ملموس بفخامة واحترافية.'
-            : 'With over 20 years of expertise, we offer the finest properties across Sudan, Egypt, UAE, and Saudi Arabia. We turn your real estate vision into a tangible reality with luxury and professionalism.'}
+            ? 'مع خبرة تتجاوز ٢٠ عاماً، نقدم لك أرقى العقارات في جميع انحاء العالم. نحوّل رؤيتك العقارية إلى واقع ملموس بفخامة واحترافية.'
+            : 'With over 20 years of expertise, we offer the finest properties across the world. We turn your real estate vision into a tangible reality with luxury and professionalism.'}
         </motion.p>
 
         <motion.div
@@ -688,14 +711,14 @@ function Hero({ lang }: { lang: Lang }) {
       </motion.div>
 
       {/* Scroll indicator */}
-      <motion.button
-        onClick={() => handleNav('about')}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[#d4af37]/70 hover:text-[#d4af37] transition-colors"
-        aria-label="Scroll down"
-      >
+        <motion.button
+          onClick={() => handleNav('about')}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[#d4af37]/70 hover:text-[#d4af37] transition-colors"
+          aria-label="Scroll down"
+        >
         <span className="text-[10px] tracking-[0.3em] uppercase">
           {lang === 'ar' ? 'اسحب للأسفل' : 'Scroll'}
         </span>
@@ -710,21 +733,21 @@ function Hero({ lang }: { lang: Lang }) {
 // ============================================================
 function About({ lang }: { lang: Lang }) {
   const stats = [
-    { icon: Award, value: '20+', label: { ar: 'سنة خبرة', en: 'Years Experience' } },
-    { icon: Globe, value: '4', label: { ar: 'دول', en: 'Countries' } },
-    { icon: Building, value: '2500+', label: { ar: 'عقار', en: 'Properties' } },
+    { icon: Award, value: '23+', label: { ar: 'سنة خبرة', en: 'Years Experience' } },
+    { icon: Globe, value: 'World', label: { ar: 'دول', en: 'Countries' } },
+    { icon: Building, value: '25000+', label: { ar: 'عقار', en: 'Properties' } },
   ];
 
   const points = lang === 'ar'
     ? [
         'فريق من الخبراء العقاريين المعتمدين بأعلى المعايير الدولية',
-        'شبكة واسعة من الشركاء في السودان ومصر والإمارات والسعودية',
+        'شبكة واسعة من الشركاء في جميع انحاء العالم',
         'خدمات قانونية متكاملة لضمان سلامة جميع المعاملات',
         'استراتيجيات تسويق عقاري حديثة ومبتكرة',
       ]
     : [
         'A team of certified real estate experts with the highest international standards',
-        'An extensive network of partners across Sudan, Egypt, UAE, and Saudi Arabia',
+        'An extensive network of partners across the world',
         'Integrated legal services ensuring the safety of all transactions',
         'Modern and innovative real estate marketing strategies',
       ];
@@ -735,7 +758,7 @@ function About({ lang }: { lang: Lang }) {
         <SectionHeading
           title={{ ar: 'من نحن', en: 'About RAGIA' }}
           subtitle={{
-            ar: 'تعرف على راقية للعقارات — حيث يلتقي الفخامة بالخبرة',
+            ar: 'تعرف على راقية للعقارات — حيث تلتقي الفخامة بالخبرة',
             en: 'Discover RAGIA Real Estate — where luxury meets expertise',
           }}
           lang={lang}
@@ -771,7 +794,7 @@ function About({ lang }: { lang: Lang }) {
                   <Crown className="w-5 h-5 text-[#080b14]" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-gold-gradient leading-none">20+</div>
+                  <div className="text-2xl font-bold text-gold-gradient leading-none">23+</div>
                   <div className="text-[10px] text-[#94a3b8] mt-1">
                     {lang === 'ar' ? 'سنة تميّز' : 'Years of Excellence'}
                   </div>
@@ -1280,8 +1303,8 @@ function CountriesSection({ lang }: { lang: Lang }) {
         <SectionHeading
           title={{ ar: 'دولنا حول العالم', en: 'Our Global Presence' }}
           subtitle={{
-            ar: 'نمتدّ بفخامتنا عبر أربع دول رائدة في المنطقة',
-            en: 'Our luxury presence extends across four leading countries in the region',
+            ar: 'نمتدّ بفخامتنا عبرالدول الرائدة في المنطقة',
+            en: 'Our luxury presence extends The across leading countries in the region',
           }}
           lang={lang}
         />
@@ -1638,7 +1661,7 @@ function Footer({ lang }: { lang: Lang }) {
           </p>
           <p className="text-xs text-[#94a3b8]/70 flex items-center gap-1.5">
             <Heart className="w-3 h-3 text-[#d4af37]" />
-            {lang === 'ar' ? 'صُنع بشغف للعقارات الفاخرة' : 'Crafted with passion for luxury real estate'}
+            {lang === 'ar' ? 'صُنع بشغف للعقارات الفاخرة المطور مازن القيصر' : 'Crafted with passion for luxury real estate powered by mazen alqayser'}
           </p>
         </div>
       </div>
@@ -1784,23 +1807,6 @@ export default function Home() {
       document.documentElement.lang = lang;
     }
   }, [lang]);
-
-  // Samsung Android fix: global error handler to force-remove preloader
-  useEffect(() => {
-    const forceHide = () => {
-      const el = document.getElementById('ragia-preloader');
-      if (el) {
-        el.classList.add('preloader-hide');
-        setTimeout(() => el.remove(), 500);
-      }
-    };
-    window.addEventListener('error', forceHide);
-    window.addEventListener('unhandledrejection', forceHide);
-    return () => {
-      window.removeEventListener('error', forceHide);
-      window.removeEventListener('unhandledrejection', forceHide);
-    };
-  }, []);
 
   return (
     <>
