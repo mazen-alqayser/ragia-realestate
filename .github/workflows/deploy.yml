@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Next.js to GitHub Pages
 
 on:
   push:
@@ -32,11 +32,8 @@ jobs:
       - name: Build static site
         run: npm run build
 
-      - name: Verify output
-        run: ls -la out/ && echo "Build successful!"
-
       - name: Add .nojekyll
-        run: touch out/.nojekyll
+        run: touch ./out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
