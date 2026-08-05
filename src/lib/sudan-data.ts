@@ -674,7 +674,7 @@ export const countriesData: Country[] = [
 export const statsData = [
   { target: 23, suffix: "+", label: { ar: "سنة من الخبرة", en: "Years of Experience" } },
   { target: 25000, suffix: "+", label: { ar: "عقار تم تسويقه", en: "Properties Marketed" } },
-  { target: world, suffix: "", label: { ar: "دول نعمل فيها", en: "Countries We Operate In" } },
+  { target: "world", suffix: "", label: { ar: "دول نعمل فيها", en: "Countries We Operate In" } },
   { target: 18, suffix: "+", label: { ar: "مدينة سودانية", en: "Sudanese Cities Covered" } },
   { target: 100, suffix: "%", label: { ar: "رضا العملاء", en: "Client Satisfaction" } },
   { target: 50, suffix: "+", label: { ar: "خبير عقاري", en: "Real Estate Experts" } },
